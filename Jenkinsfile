@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        KUBECONFIG = credentials('kubernetes-config')
+    }
     stages {
         stage('build') {
             steps {
@@ -7,7 +10,10 @@ pipeline {
             }
         }
         stage('deploy') {
-            sh 'helm install -f my-api/values.yaml my-api ./my-api'
+            steps {
+                sh 'helm install -f my-api/values.yaml my-api ./my-api'
+            }
+
         }
     }
 }
