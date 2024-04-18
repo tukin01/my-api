@@ -12,6 +12,7 @@ pipeline {
         stage('deploy') {
             steps {
                 sh 'helm install -f my-api/values.yaml my-api ./my-api'
+                sh 'helm ls'
             }
 
         }
